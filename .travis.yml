@@ -1,0 +1,14 @@
+language: python
+
+python:
+  - "3.8"
+
+install:
+  - pip install -r requirement.txt
+
+script: python -m unittest
+after_success:
+  - eval "s(ssh-agent -s)"
+  - echo -e "Host ${SERVER_IP_ADDRESS}\n\tStrictHostKeyCheking no\n" >> ~/.ssh/config
+  - ssh ${SERVER_USER}@${SERVER_IP_ADDRESS}"
+  - git clone https://github.com/ducnguyen112/pineline_flask.git
